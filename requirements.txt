@@ -1,1 +1,1 @@
-sportsdataverse==0.0.39
+sportsdataverse
