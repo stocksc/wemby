@@ -1,1 +1,2 @@
 sportsdataverse
+xgboost==1.6
