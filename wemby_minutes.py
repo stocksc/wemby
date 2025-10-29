@@ -69,6 +69,11 @@ for game_id in game_ids:
         chili_peps += "🔥🔥"
     if box['BLK'].values[0] >= 5:
         chili_peps += "🔥"
+    shooting = box['FG'].values[0].split("-")
+    if (int(shooting[0]) / int(shooting[1])) > 0.6:
+        chili_peps += "🔥"
+    if (int(shooting[0]) / int(shooting[1])) < 0.4:
+        chili_peps = chili_peps[:-1]
 
     with st.expander("Stats "+chili_peps):
         st.dataframe(box, hide_index=True)
