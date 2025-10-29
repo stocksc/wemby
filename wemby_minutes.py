@@ -13,7 +13,7 @@ season_games_df = nba.load_nba_team_boxscore(seasons=2026, return_as_pandas=True
 spurs_games = season_games_df.loc[season_games_df['team_name']=="Spurs"]
 
 # Get recent spurs games
-n_days_recent = 7
+n_days_recent = 14
 recent_days = []
 for n in range(n_days_recent):
     recent_days += [str(datetime.now() - timedelta(n+1))[0:10]]
@@ -21,6 +21,9 @@ spurs_games = spurs_games.loc[spurs_games['game_date'].isin(recent_days)]
 
 game_ids = list(spurs_games['game_id'])
 len(game_ids)
+
+# Get schedule df for broadcast network (if any)
+schedule = nba.load_nba_schedule(2026, True)
 
 # Play by play for recent spurs games
 all_games = {}
@@ -34,6 +37,11 @@ for game_id in game_ids:
         game_title = f"Spurs at {game['opponent_team_name'].values[0]}"
     game_title = game_title + f" ({game['game_date'].values[0]})"
     st.subheader(game_title)
+
+    # Network
+    network = schedule.loc[schedule['id'] == game_id, 'broadcast'].values[0]
+    if network != "":
+        st.text(f"Network: {network}")
 
     # API pull
     all_games[game_id] = nba.espn_nba_pbp(game_id=game_id)
