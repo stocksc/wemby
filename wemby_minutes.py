@@ -72,6 +72,8 @@ for game_id in game_ids:
     shooting = box['FG'].values[0].split("-")
     if (int(shooting[0]) / int(shooting[1])) > 0.6:
         chili_peps += "🔥"
+    if (int(shooting[0]) / int(shooting[1])) > 0.7:
+        chili_peps += "🔥"
     if (int(shooting[0]) / int(shooting[1])) < 0.4:
         chili_peps = chili_peps[:-1]
 
